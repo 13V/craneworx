@@ -505,9 +505,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     overhead: { t: 'Overhead crane / steel', k: 'From the job book', img: 'Yellow mobile crane working beneath', cap: 'Overhead crane installation', d: 'The crew installed eight overhead cranes for All Type Contracting Services Pty Ltd.', r: ['Beam lengths and weights from the drawings'] },
     transformer: { t: 'Transformer', k: 'From the job book', img: 'Crew beside a crane during a transformer', cap: 'Transformer change-out', d: 'A transformer change-out with access through a roller door.', r: ['A photo of the rating plate'] },
     vehicle: { t: 'Vehicle or equipment move', k: 'Transport', img: 'Yellow Craneworx tilt-slide truck', cap: 'Tilt-slide transport', d: 'Collection and delivery for machinery, equipment and oversize loads.', r: ['Whether it runs and drives'] },
-    container: { t: 'Shipping container', k: 'Tell Daniel the size', d: 'Tell Daniel the size and where it needs to go, and he’ll talk it through with you.', r: ['20 or 40 foot, and empty or loaded'] },
-    rooftop: { t: 'Rooftop plant', k: 'Tell Daniel the details', d: 'Air-conditioning units and plant on and off roofs. Tell Daniel the unit and the building.', r: ['Unit make and model, and the building height'] },
-    other: { t: 'Something else', k: 'Tell Daniel what it is', d: 'If it’s not on the list, describe it and Daniel will tell you what’s needed.', r: [] }
+    container: { t: 'Shipping container', k: 'Tell Daniel the size', src: 'img/lift-container.webp', cap: 'Illustration · not a Craneworx job', d: 'Tell Daniel the size and where it needs to go, and he’ll talk it through with you.', r: ['20 or 40 foot, and empty or loaded'] },
+    rooftop: { t: 'Rooftop plant', k: 'Tell Daniel the details', src: 'img/lift-rooftop.webp', cap: 'Illustration · not a Craneworx job', d: 'Air-conditioning units and plant on and off roofs. Tell Daniel the unit and the building.', r: ['Unit make and model, and the building height'] },
+    other: { t: 'Something else', k: 'Tell Daniel what it is', img: 'Craneworx yellow mobile crane on site', cap: 'The Wingfield yard', d: 'If it’s not on the list, describe it and Daniel will tell you what’s needed.', r: [] }
   };
   const img = one('#job-img'), draw = one('.job-draw'), cap = one('#job-cap'), form = one('#text-daniel');
   let current = 'pool';
@@ -516,7 +516,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     all('.jobs button').forEach(b => b.setAttribute('aria-checked', String(b.dataset.job === key)));
     one('#job-title').textContent = j.t; one('#job-kicker').textContent = j.k; one('#job-detail').textContent = j.d;
     one('#job-ready').replaceChildren(...[...j.r, ...base].slice(0, 5).map(x => Object.assign(document.createElement('li'), { textContent: x })));
-    const src = j.img && photo(j.img);
+    const src = j.src || (j.img && photo(j.img));
     draw.hidden = !!src; cap.hidden = !src;
     if (src) { img.classList.add('out'); setTimeout(() => { img.src = src; img.alt = j.cap; cap.textContent = j.cap; requestAnimationFrame(() => img.classList.remove('out')); }, 180); }
     else { img.removeAttribute('src'); img.alt = ''; }
